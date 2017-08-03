@@ -145,6 +145,7 @@ class ImageViewerAdapter
             controllerBuilder.setUri(url);
             controllerBuilder.setOldController(drawee.getController());
             controllerBuilder.setControllerListener(getDraweeControllerListener(drawee));
+            controllerBuilder.setAutoPlayAnimations(true);    
             if (imageRequestBuilder != null) {
                 imageRequestBuilder.setSource(Uri.parse(url));
                 controllerBuilder.setImageRequest(imageRequestBuilder.build());
