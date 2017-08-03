@@ -17,6 +17,7 @@ public final class Demo {
 
     public static String[] getPosters() {
         return new String[]{
+                "https://media.giphy.com/media/xT39CSUZtc1T1iKgc8/giphy.gif",
                 POSTERS_PATH + "/Vincent.jpg",
                 POSTERS_PATH + "/Jules.jpg",
                 POSTERS_PATH + "/Korben.jpg",
