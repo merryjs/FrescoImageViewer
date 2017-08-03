@@ -33,3 +33,4 @@ android/proguard/
 .idea/
 build/
 .gradle
+!./gradle/*.jar
