@@ -46,7 +46,7 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
 
     private Builder builder;
     private AlertDialog dialog;
-    private ImageViewerView viewer;
+    private static ImageViewerView viewer;
 
     protected ImageViewer(Builder builder) {
         this.builder = builder;
@@ -392,6 +392,17 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
             this.onDismissListener = onDismissListener;
             return this;
         }
+
+
+        public interface Command {
+            ImageRequestBuilder getImageSource(String url);
+        }
+
+        public Builder setCustomImageRequestBuilder(Command cmd) {
+            this.setCustomImageRequestBuilder(cmd.getImageSource(viewer.getUrl()));
+            return this;
+        }
+
 
         /**
          * Set @{@code ImageRequestBuilder} for drawees. Use it for post-processing, custom resize options etc.
