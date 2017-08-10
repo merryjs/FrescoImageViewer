@@ -70,7 +70,7 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
 
     private void createDialog() {
         viewer = new ImageViewerView(builder.context);
-        viewer.setCustomImageRequestBuilder(builder.customImageRequestBuilder);
+//        viewer.setCustomImageRequestBuilder(builder.customImageRequestBuilder);
         viewer.setCustomDraweeHierarchyBuilder(builder.customHierarchyBuilder);
         viewer.allowZooming(builder.isZoomingAllowed);
         viewer.allowSwipeToDismiss(builder.isSwipeToDismissAllowed);
@@ -88,6 +88,8 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
                 }
             }
         });
+
+        viewer.setCustomImageRequestBuilder(builder.onImageRequest.getImageRequestBuilder(getUrl()));
 
         dialog = new AlertDialog.Builder(builder.context, getDialogStyle())
                 .setView(viewer)
@@ -135,6 +137,10 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
         return ImageRequestBuilder.newBuilderWithSource(Uri.parse(""));
     }
 
+    public interface onImageRequest {
+        ImageRequestBuilder getImageRequestBuilder(String url);
+    }
+
     /**
      * Interface definition for a callback to be invoked when image was changed
      */
@@ -149,7 +155,9 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
         void onDismiss();
     }
 
-    private @StyleRes int getDialogStyle() {
+    private
+    @StyleRes
+    int getDialogStyle() {
         return builder.shouldStatusBarHide
                 ? android.R.style.Theme_Translucent_NoTitleBar_Fullscreen
                 : android.R.style.Theme_Translucent_NoTitleBar;
@@ -199,10 +207,23 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
 
         private Context context;
         private DataSet<T> dataSet;
-        private @ColorInt int backgroundColor = Color.BLACK;
+        private
+        @ColorInt
+        int backgroundColor = Color.BLACK;
         private int startPosition;
         private OnImageChangeListener imageChangeListener;
         private OnDismissListener onDismissListener;
+        private onImageRequest onImageRequest;
+
+        public ImageViewer.onImageRequest getOnImageRequest() {
+            return onImageRequest;
+        }
+
+        public Builder setOnImageRequest(ImageViewer.onImageRequest onImageRequest) {
+            this.onImageRequest = onImageRequest;
+            return this;
+        }
+
         private View overlayView;
         private int imageMarginPixels;
         private int[] containerPaddingPixels = new int[4];
