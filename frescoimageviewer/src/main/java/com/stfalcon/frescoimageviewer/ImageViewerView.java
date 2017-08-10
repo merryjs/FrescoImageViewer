@@ -82,6 +82,14 @@ class ImageViewerView extends RelativeLayout
         setStartPosition(startPosition);
     }
 
+    public interface Command {
+        ImageRequestBuilder getImageSource(String url);
+    }
+
+    public void setCustomImageRequestBuilder(Command cmd) {
+        this.setCustomImageRequestBuilder(cmd.getImageSource(getUrl()));
+    }
+
     public void setCustomImageRequestBuilder(ImageRequestBuilder customImageRequestBuilder) {
         this.customImageRequestBuilder = customImageRequestBuilder;
     }
