@@ -89,7 +89,7 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
             }
         });
 
-        viewer.setCustomImageRequestBuilder(builder.onImageRequest.getImageRequestBuilder(getUrl()));
+        viewer.setCustomImageRequestBuilder(builder.getOnImageRequest().getImageRequestBuilder(getUrl()));
 
         dialog = new AlertDialog.Builder(builder.context, getDialogStyle())
                 .setView(viewer)
