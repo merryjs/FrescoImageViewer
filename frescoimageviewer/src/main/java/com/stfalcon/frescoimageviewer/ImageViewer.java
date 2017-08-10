@@ -137,7 +137,7 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
         return ImageRequestBuilder.newBuilderWithSource(Uri.parse(""));
     }
 
-    public interface onImageRequest {
+    public interface OnImageRequest {
         ImageRequestBuilder getImageRequestBuilder(String url);
     }
 
@@ -213,13 +213,13 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
         private int startPosition;
         private OnImageChangeListener imageChangeListener;
         private OnDismissListener onDismissListener;
-        private onImageRequest onImageRequest;
+        private OnImageRequest onImageRequest;
 
-        public ImageViewer.onImageRequest getOnImageRequest() {
+        public ImageViewer.OnImageRequest getOnImageRequest() {
             return onImageRequest;
         }
 
-        public Builder setOnImageRequest(ImageViewer.onImageRequest onImageRequest) {
+        public Builder setOnImageRequest(ImageViewer.OnImageRequest onImageRequest) {
             this.onImageRequest = onImageRequest;
             return this;
         }
@@ -411,16 +411,6 @@ public class ImageViewer implements OnDismissListener, DialogInterface.OnKeyList
          */
         public Builder setOnDismissListener(OnDismissListener onDismissListener) {
             this.onDismissListener = onDismissListener;
-            return this;
-        }
-
-
-        public interface Command {
-            ImageRequestBuilder getImageSource(String url);
-        }
-
-        public Builder setCustomImageRequestBuilder(Command cmd) {
-            this.setCustomImageRequestBuilder(cmd.getImageSource(viewer.getUrl()));
             return this;
         }
 
